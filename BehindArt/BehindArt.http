@@ -1,0 +1,6 @@
+@BehindArt_HostAddress = http://localhost:5284
+
+GET {{BehindArt_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

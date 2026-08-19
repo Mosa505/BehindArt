@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ArtGallery.Application/BehindArt.Application.csproj" />
+  <Project Path="ArtGallery.Domain/BehindArt.Domain.csproj" />
+  <Project Path="ArtGallery.Infrastructure/BehindArt.Infrastructure.csproj" />
+  <Project Path="BehindArt/BehindArt.csproj" />
+</Solution>

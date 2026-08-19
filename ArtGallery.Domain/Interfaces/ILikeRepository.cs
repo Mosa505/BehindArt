@@ -1,0 +1,17 @@
+﻿using BehindArt.Domain.Entitiyes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BehindArt.Domain.Interfaces
+{
+    internal interface ILikeRepository
+    {
+        Task<bool> ExistsAsync(int userId, int paintingId);
+        Task AddAsync(Like like);
+        void Delete(Like like);
+        Task<bool> SaveChangesAsync();
+    }
+}
