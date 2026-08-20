@@ -35,8 +35,9 @@ namespace BehindArt.Infrastructure.Repositories
             await _context.Paintings
                 .Where(p => p.EraId == eraId)
                 .Include(p => p.Artist)
+                .Include(p => p.Era)
                 .ToListAsync();
-
+            
         public async Task AddAsync(Painting painting) =>
             await _context.Paintings.AddAsync(painting);
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BehindArt.Domain.Interfaces
 {
-    internal interface ILikeRepository
+    public interface ILikeRepository
     {
         Task<bool> ExistsAsync(int userId, int paintingId);
         Task AddAsync(Like like);
