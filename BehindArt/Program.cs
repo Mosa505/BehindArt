@@ -18,6 +18,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IPaintingRepository, PaintingRepository>();
 builder.Services.AddScoped<IPaintingService, PaintingService>();
+builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
+builder.Services.AddScoped<IArtistService, ArtistService>();
 builder.Services.AddScoped<ILikeRepository, LikeRepository>();
 
 var app = builder.Build();
