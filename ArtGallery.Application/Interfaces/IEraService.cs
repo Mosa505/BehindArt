@@ -12,5 +12,6 @@ namespace BehindArt.Application.Interfaces
         Task<EraDto?> GetByIdAsync(int id);
         Task<IEnumerable<EraDto>> GetAllAsync();
 
+
     }
 }

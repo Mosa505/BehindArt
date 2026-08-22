@@ -11,6 +11,9 @@ namespace BehindArt.Application.Interfaces
     {
         Task<ArtistDto?> GetByIdAsync(int id);
         Task<IEnumerable<ArtistDto>> GetAllAsync();
+        Task<ArtistDto> CreateAsync(CreateArtistDto dto);
+        Task<bool> UpdateAsync(int id, UpdateArtistDto dto);
+        Task<bool> DeleteAsync(int id);
 
     }
 }
