@@ -1,4 +1,5 @@
 ﻿using BehindArt.Application.DTOs;
+using BehindArt.Domain.Entitiyes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace BehindArt.Application.Interfaces
     {
         Task<EraDto?> GetByIdAsync(int id);
         Task<IEnumerable<EraDto>> GetAllAsync();
-
+        Task<EraDto> CreateAsync(CreateEraDto dto);
+        Task<bool> UpdateAsync(int id, UpdateEraDto dto);
+        Task<bool> DeleteAsync(int id);
 
     }
 }
