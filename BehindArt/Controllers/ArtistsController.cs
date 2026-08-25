@@ -26,7 +26,13 @@ namespace BehindArt.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
+            if (id == 0)
+            {
+                throw new Exception("Artist ID cannot be zero");
+            }
+
             var artist = await _artistService.GetByIdAsync(id);
+            
             return artist is null ? NotFound() : Ok(artist);
         }
 

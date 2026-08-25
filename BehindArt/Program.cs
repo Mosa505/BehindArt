@@ -3,6 +3,7 @@ using BehindArt.Application.Services;
 using BehindArt.Domain.Interfaces;
 using BehindArt.Infrastructure.Data;
 using BehindArt.Infrastructure.Repositories;
+using BehindArt.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +26,8 @@ builder.Services.AddScoped<IEraService, EraService>();
 builder.Services.AddScoped<ILikeRepository, LikeRepository>();
 
 var app = builder.Build();
-    
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
