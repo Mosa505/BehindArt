@@ -1,4 +1,5 @@
 ﻿using BehindArt.Domain.Entitiyes;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,9 @@ using System.Threading.Tasks;
 
 namespace BehindArt.Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User, Role, int>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-        public DbSet<User> Users => Set<User>();
         public DbSet<Artist> Artists => Set<Artist>();
         public DbSet<Era> Eras => Set<Era>();
         public DbSet<Painting> Paintings => Set<Painting>();
@@ -45,9 +45,6 @@ namespace BehindArt.Infrastructure.Data
             .HasDefaultValueSql("GETUTCDATE()");
 
             // User
-            modelBuilder.Entity<User>()
-            .HasIndex(u => u.Email)
-            .IsUnique();
 
             modelBuilder.Entity<User>()
             .Property(u => u.CreatedAt)

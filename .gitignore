@@ -27,7 +27,8 @@ TestResults/
 [Tt]est[Rr]esult*/
 
 # ASP.NET Core local development
-appsettings.Development.json
+appsettings.json
+appsettings.*.json
 
 # Environment / secrets
 .env
