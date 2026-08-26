@@ -62,6 +62,8 @@ namespace BehindArt.Application.Services
         {
             var artist = await _artistRepository.GetByIdAsync(id);
             if (artist is null) return false;
+            if (artist.Paintings.Any()) 
+                throw new InvalidOperationException("Cannot delete an artist with associated paintings.");
 
             _artistRepository.Delete(artist);
             return await _artistRepository.SaveChangesAsync();

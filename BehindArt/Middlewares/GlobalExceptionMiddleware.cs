@@ -32,8 +32,6 @@ namespace BehindArt.Middlewares
             {
                 KeyNotFoundException => (HttpStatusCode.NotFound, ex.Message),
                 ArgumentException => (HttpStatusCode.BadRequest, ex.Message),
-                InvalidOperationException ioe when ioe.Message.Contains("relationship") =>
-            (HttpStatusCode.BadRequest, "Cannot delete this item because other records depend on it."),
                 InvalidOperationException => (HttpStatusCode.BadRequest, ex.Message),
                 UnauthorizedAccessException => (HttpStatusCode.Unauthorized, "You are not authorized to perform this action."),
                 _ => (HttpStatusCode.InternalServerError, "Something went wrong. Please try again later.")

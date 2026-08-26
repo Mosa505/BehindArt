@@ -65,7 +65,8 @@ namespace BehindArt.Application.Services
         {
             var era = await _repository.GetByIdAsync(id);
             if (era == null) return false;
-
+            if (era.Paintings.Any())
+                throw new InvalidOperationException("Cannot delete an era with associated paintings.");
             _repository.Delete(era);
             return await _repository.SaveChangesAsync();
         }
