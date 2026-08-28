@@ -10,7 +10,6 @@ namespace BehindArt.Application.Interfaces
 {
     public interface ITokenService
     {
-        Task<string> CreateTokenAsync(User user, List<string> roles);
-        Task CreateTokenAsync(User user, IList<string> roles);
+        Task<string> CreateTokenAsync(User user, IList<string> roles);
     }
 }

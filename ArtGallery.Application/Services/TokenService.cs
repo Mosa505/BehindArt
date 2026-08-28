@@ -20,7 +20,7 @@ namespace BehindArt.Application.Services
         {
             _configuration = configuration;
         }
-        public Task<string> CreateTokenAsync(User user, IEnumerable<string> roles)
+        public Task<string> CreateTokenAsync(User user, IList<string> roles)
         {
             var claims = new List<Claim>
         {
@@ -46,5 +46,7 @@ namespace BehindArt.Application.Services
         );
             return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
         }
+
+        
     }
 }
