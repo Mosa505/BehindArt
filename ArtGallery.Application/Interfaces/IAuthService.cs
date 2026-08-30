@@ -11,5 +11,7 @@ namespace BehindArt.Application.Interfaces
     {
         Task<AuthResponseDto> RegisterAsync(RegisterDto dto);
         Task<AuthResponseDto> LoginAsync(LoginDto dto);
+        Task AdminAsync(AdminDto dto);
+        Task UpdateUserRoleAsync(int userId, string newRole);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BehindArt.Application.DTOs;
 using BehindArt.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,8 +37,9 @@ namespace BehindArt.Controllers
             var paintings = await _paintingService.GetByEraAsync(eraId);
             return Ok(paintings);
         }
-
+        
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreatePaintingDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -52,8 +54,9 @@ namespace BehindArt.Controllers
                 return BadRequest(new { error = ex.Message });
             }
         }
-
+        
         [HttpPut("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdatePaintingDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -68,8 +71,9 @@ namespace BehindArt.Controllers
                 return BadRequest(new { error = ex.Message });
             }
         }
-
+        
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var deleted = await _paintingService.DeleteAsync(id);

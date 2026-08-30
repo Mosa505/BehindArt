@@ -2,6 +2,7 @@
 using BehindArt.Application.Interfaces;
 using BehindArt.Domain.Entitiyes;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,13 @@ namespace BehindArt.Application.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly ITokenService _tokenService;
+        private readonly IConfiguration _configuration;
 
-        public AuthService(UserManager<User> userManager, ITokenService tokenService)
+        public AuthService(UserManager<User> userManager, ITokenService tokenService, IConfiguration configuration)
         {
             _userManager = userManager;
             _tokenService = tokenService;
+            _configuration = configuration;
         }
 
         public async Task<AuthResponseDto> LoginAsync(LoginDto dto)
@@ -75,7 +78,39 @@ namespace BehindArt.Application.Services
                 Role = roles.FirstOrDefault() ?? "User",
                 Token = token
             };
+        }
 
+        public async Task AdminAsync(AdminDto dto)
+        {
+            var expectedKey = _configuration["AdminSetup:SecretKey"];
+
+            if (dto.SecretKey != expectedKey)
+                throw new UnauthorizedAccessException("Invalid secret key.");
+
+            var user = await _userManager.FindByEmailAsync(dto.Email);
+            if (user is null)
+                throw new KeyNotFoundException("User not found.");
+
+            var isAlreadyAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+            if (isAlreadyAdmin)
+                throw new InvalidOperationException("This user is already an Admin.");
+
+            await _userManager.AddToRoleAsync(user, "Admin");
+        }
+        public async Task UpdateUserRoleAsync(int userId, string newRole)
+        {
+            if (newRole != "Admin" && newRole != "User")
+                throw new ArgumentException("Role must be either 'Admin' or 'User'.");
+
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user is null)
+                throw new KeyNotFoundException("User not found.");
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+
+            await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            await _userManager.AddToRoleAsync(user, newRole);
         }
     }
-}
+    }
+
