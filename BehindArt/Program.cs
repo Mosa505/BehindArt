@@ -92,6 +92,10 @@ builder.Services.AddScoped<IEraService, EraService>();
 builder.Services.AddScoped<ILikeRepository, LikeRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ILikeRepository, LikeRepository>();
+builder.Services.AddScoped<ISaveRepository, SaveRepository>();
+builder.Services.AddScoped<ILikeService, LikeService>();
+builder.Services.AddScoped<ISaveService, SaveService>();
 
 var app = builder.Build();
 

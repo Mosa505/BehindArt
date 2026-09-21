@@ -22,11 +22,17 @@ namespace BehindArt.Infrastructure.Repositories
         public async Task<bool> ExistsAsync(int userId, int paintingId) =>
             await _context.Likes.AnyAsync(l => l.UserId == userId && l.PaintingId == paintingId);
 
+        public async Task<Like?> GetAsync(int userId, int paintingId) =>
+             await _context.Likes.FirstOrDefaultAsync(l => l.UserId == userId && l.PaintingId == paintingId);
+
         public async Task AddAsync(Like like) =>
             await _context.Likes.AddAsync(like);
 
         public void Delete(Like like) =>
             _context.Likes.Remove(like);
+
+        public async Task<int> GetLikeCountAsync(int paintingId) =>
+            await _context.Likes.CountAsync(l => l.PaintingId == paintingId);
 
         public async Task<bool> SaveChangesAsync() =>
             await _context.SaveChangesAsync() > 0;
